@@ -50,7 +50,8 @@ public class Main {
         System.out.println("Username");
         String userName = myObj.nextLine();
 
-       char[] password = System.console().readPassword("Password: ");
+        System.out.println("Password");
+        String Password = myObj.nextLine();
     }
 
 
@@ -70,7 +71,8 @@ public class Main {
         System.out.println("Gebruikersnaam");
         String Gebruikersnaam = myObj.nextLine();
 
-        char[] password = System.console().readPassword("Password: ");
+        System.out.println("Password");
+        String Password = myObj.nextLine();
 
         System.out.println("GeboorteDatum");
         String GeboorteDatum = myObj.nextLine();
