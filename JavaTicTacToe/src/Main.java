@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-
+import java.io.Console;
 public class Main {
 
     public static final String HackerGreen = "#149414";
@@ -15,6 +15,7 @@ public class Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        System.out.flush();
         AccountCheck();
     }
 
@@ -34,6 +35,7 @@ public class Main {
             }
             else{
                 System.out.println("Ongeldige invoer probeer opnieuw");
+                System.out.flush();
                 AccountCheck();
         }
 
@@ -48,14 +50,13 @@ public class Main {
         System.out.println("Username");
         String userName = myObj.nextLine();
 
-        System.out.println("Password");
-        String Password = myObj.nextLine();
-
+       char[] password = System.console().readPassword("Password: ");
     }
 
 
 
     public static void GebruikersRegistratie(){
+        System.out.flush();
         Scanner myObj = new Scanner(System.in);
 
         System.out.println("Registreer je nu!");
@@ -69,8 +70,7 @@ public class Main {
         System.out.println("Gebruikersnaam");
         String Gebruikersnaam = myObj.nextLine();
 
-        System.out.println("Wachtwoord");
-        String Password = myObj.nextLine();
+        char[] password = System.console().readPassword("Password: ");
 
         System.out.println("GeboorteDatum");
         String GeboorteDatum = myObj.nextLine();
