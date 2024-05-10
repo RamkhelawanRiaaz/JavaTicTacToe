@@ -1,11 +1,13 @@
 package com.unasat.UserHandler;
-
 import java.util.Scanner;
+import static com.unasat.UserHandler.Backend.*;
 
 public class UserHandler {
 
 
     public static void AccountCheck(){
+        DbConnection();
+
         Scanner myObj = new Scanner(System.in);
 
         System.out.println("Heeft u nog geen account type Registreren | heeft u wel type Inloggen");
@@ -37,6 +39,7 @@ public class UserHandler {
 
         System.out.println("Password");
         String Password = myObj.nextLine();
+
     }
 
 
