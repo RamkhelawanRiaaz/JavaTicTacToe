@@ -63,7 +63,7 @@ public class UserHandler {
         System.out.println("Password");
         String Password = myObj.nextLine();
 
-        System.out.println("GeboorteDatum");
+        System.out.println("GeboorteDatum - YYY-MM-DD");
         String GeboorteDatum = myObj.nextLine();
 
         System.out.println("Gaat u akkoord met onze community guidelines? (Ja/Nee)");
