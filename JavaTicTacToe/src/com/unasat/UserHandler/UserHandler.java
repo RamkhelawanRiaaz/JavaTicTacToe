@@ -1,6 +1,7 @@
 package com.unasat.UserHandler;
 import java.util.Scanner;
 import static com.unasat.UserHandler.Backend.*;
+import static com.unasat.UserHandler.Backend.SqlRegister;
 
 public class UserHandler {
 
@@ -67,6 +68,16 @@ public class UserHandler {
 
         System.out.println("Gaat u akkoord met onze community guidelines? (Ja/Nee)");
         String Guidelines = myObj.nextLine();
+
+        var InsertQuery = SqlRegister( Voornaam , Achternaam , Gebruikersnaam , Password , GeboorteDatum);
+
+        if(InsertQuery){
+            Inloggen();
+        }else {
+            System.out.println("Er was een issue bij inserten please try again");
+            GebruikersRegistratie();
+
+        }
     }
 
 
