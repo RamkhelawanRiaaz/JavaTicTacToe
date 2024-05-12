@@ -32,8 +32,7 @@ public class UserHandler {
 
     public static void Inloggen(){
         Scanner myObj = new Scanner(System.in);
-
-        System.out.println("UserHandler");
+        System.out.println("Player 1 Login");
 
         System.out.println("Username");
         String userName = myObj.nextLine();
@@ -41,9 +40,25 @@ public class UserHandler {
         System.out.println("Password");
         String Password = myObj.nextLine();
 
-        boolean result = SqlLogin( userName , Password);
+        String result = SqlLogin( userName , Password);
 
-        if (result != true){
+        if (result != "Failed"){
+            String player1 = result;
+
+            Inloggen();
+            System.out.println("Player 2 Login");
+
+            String resultuser2 = SqlLogin( userName , Password);
+            if (result != "Failed"){
+                String player2 = resultuser2;
+            }
+            else {
+                Inloggen();
+            }
+
+
+
+        }else {
             Inloggen();
         }
 

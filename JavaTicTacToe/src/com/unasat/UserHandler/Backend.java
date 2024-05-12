@@ -54,7 +54,7 @@ public class Backend {
         }
 
     }
-    public static boolean SqlLogin(String Gebruikersnaam ,String Password){
+    public static String SqlLogin(String Gebruikersnaam ,String Password){
         try {
             Connection connection = DriverManager.getConnection(dburl, user, password);
             Statement stmt = connection.createStatement();
@@ -68,15 +68,18 @@ public class Backend {
 
             ResultSet rs = pstmt.executeQuery();
 
+            String username = rs.getString("Gebruikersnaam");
+
             if (!rs.next()) {
                 System.out.println("Incorrect username or password try again");
-                return false;
+                return "Failed";
             }
-return true;
+
+return username;
         } catch (SQLException e) {
             System.err.println("Connection failed");
             e.printStackTrace();
-            return false;
+            return "Failed";
         }
 
     }
