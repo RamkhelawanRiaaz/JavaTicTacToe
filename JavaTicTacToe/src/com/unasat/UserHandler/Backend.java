@@ -40,13 +40,13 @@ public class Backend {
             pstmt.setString(4, Password);
             pstmt.setString(5, GeboorteDatum);
 
-            pstmt.executeUpdate();
+            ResultSet rs = pstmt.executeQuery();
 
-            if (connection != null) {
-
+            if (!rs.next()) {
+                System.out.println("Username already exists");
+                return false;
             }
             return true;
-
         } catch (SQLException e) {
             System.err.println("Connection failed");
             e.printStackTrace();
@@ -54,6 +54,31 @@ public class Backend {
         }
 
     }
+    public static boolean SqlLogin(String Gebruikersnaam ,String Password){
+        try {
+            Connection connection = DriverManager.getConnection(dburl, user, password);
+            Statement stmt = connection.createStatement();
 
+            System.out.println("Inserting records into the table...");
+            String sql = "SELECT * FROM gebruikers WHERE Gebruikersnaam = ? AND Password = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+
+            pstmt.setString(1, Gebruikersnaam);
+            pstmt.setString(2, Password);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (!rs.next()) {
+                System.out.println("Incorrect username or password try again");
+                return false;
+            }
+return true;
+        } catch (SQLException e) {
+            System.err.println("Connection failed");
+            e.printStackTrace();
+            return false;
+        }
+
+    }
 }
 

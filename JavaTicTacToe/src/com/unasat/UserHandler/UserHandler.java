@@ -41,6 +41,14 @@ public class UserHandler {
         System.out.println("Password");
         String Password = myObj.nextLine();
 
+        boolean result = SqlLogin( userName , Password);
+
+        if (result != true){
+            Inloggen();
+        }
+
+
+
     }
 
 
