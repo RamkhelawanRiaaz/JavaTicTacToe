@@ -45,11 +45,17 @@ public class UserHandler {
         if (result != "Failed"){
             String player1 = result;
 
-            Inloggen();
             System.out.println("Player 2 Login");
 
-            String resultuser2 = SqlLogin( userName , Password);
-            if (result != "Failed"){
+            System.out.println("Username");
+            String userName2 = myObj.nextLine();
+
+            System.out.println("Password");
+            String Password2 = myObj.nextLine();
+
+            String resultuser2 = SqlLogin( userName2 , Password2);
+
+            if (resultuser2 != "Failed"){
                 String player2 = resultuser2;
             }
             else {

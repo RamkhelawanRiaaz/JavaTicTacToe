@@ -68,7 +68,7 @@ public class Backend {
 
             ResultSet rs = pstmt.executeQuery();
 
-            String username = rs.getString("Gebruikersnaam");
+            String username = "test";
 
             if (!rs.next()) {
                 System.out.println("Incorrect username or password try again");
