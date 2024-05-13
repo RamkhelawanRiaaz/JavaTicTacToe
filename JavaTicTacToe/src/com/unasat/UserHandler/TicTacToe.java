@@ -56,7 +56,7 @@ public class TicTacToe {
         }
 
         System.out.println(
-                beurt + "'s turn; enter a slot number to place "
+                beurt + " is aan de beurt, voer een nummer voor een beschikbaar cel in:"
                         + beurt + " in:");
         return null;
     }
@@ -89,11 +89,11 @@ public class TicTacToe {
             ticTacToeBord[a] = String.valueOf(a + 1);
         }
 
-        System.out.println("Welcome to 3x3 Tic Tac Toe.");
+        System.out.println("welkom bij de 3x3 TicTacToe game van Othniel, Riaaz, Rishika en Rishika.");
         printBoard();
 
         System.out.println(
-                "X will play first. Enter a slot number to place X in:");
+                "X speelt eerst . voer een nummer op een cel te selecteren:");     //acc naam kan hier komen
 
         while (winner == null) {
             int numInput;
@@ -102,13 +102,13 @@ public class TicTacToe {
                 numInput = in.nextInt();
                 if (!(numInput > 0 && numInput <= 9)) {
                     System.out.println(
-                            "Invalid input; re-enter slot number:");
+                            "Verkeerde invoer; voer een ander nummer in:");
                     continue;
                 }
             }
             catch (InputMismatchException e) {
                 System.out.println(
-                        "Invalid input; re-enter slot number:");
+                        "Verkeerde invoer; voer een ander nummer in:");
                 continue;
             }
 
@@ -128,19 +128,18 @@ public class TicTacToe {
             }
             else {
                 System.out.println(
-                        "Slot already taken; re-enter slot number:");
+                        "Deze cel is  al bezet; voer een ander nummer in:");
             }
         }
 
         if (winner.equalsIgnoreCase("draw")) {
             System.out.println(
-                    "It's a draw! Thanks for playing.");
+                    "Het is een draw!Dank u wel voor het spelen.");
         }
 
         else {
             System.out.println(
-                    "Congratulations! " + winner
-                            + "'s have won! Thanks for playing.");
+                    "Congratulations! " + winner + " heeft gewonnen.");  //acc speler kan hier komen
         }
         in.close();
     }
