@@ -8,7 +8,7 @@ public class TicTacToe {
     static String beurt;
     static String speler;
 
-    static String checkWinner(){
+    static String checkWinner(String player1, String player2){
 
         for(int a = 0; a < 8; a++){
             String line = null;
@@ -42,10 +42,10 @@ public class TicTacToe {
 
             if(line.equals("XXX")){
 
-                return speler + "(X)";
+                return player1 + "(X)";
 
             }else if(line.equals("OOO")){
-                return  speler + "(O)";
+                return  player2 + "(O)";
             }
         }
 
@@ -126,11 +126,10 @@ public class TicTacToe {
                 else {
                     beurt = "X";
                     speler = player1;
-
                 }
 
                 printBoard();
-                winner = checkWinner();
+                winner = checkWinner(player1,player2);
             }
             else {
                 System.out.println(
