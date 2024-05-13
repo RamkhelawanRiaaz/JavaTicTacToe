@@ -6,7 +6,7 @@ public class Backend {
 
     static final String dburl = "jdbc:mysql://localhost:3306/dbjavatictactoe";
     static final String user = "root";
-    static final String password = "";
+    static final String password = "root";
 
 
     public static void DbConnection()
