@@ -6,7 +6,7 @@ public class Backend {
 
     static final String dburl = "jdbc:mysql://localhost:3306/dbjavatictactoe";
     static final String user = "root";
-    static final String password = "root";
+    static final String password = "";
 
 
     public static void DbConnection()
@@ -40,9 +40,9 @@ public class Backend {
             pstmt.setString(4, Password);
             pstmt.setString(5, GeboorteDatum);
 
-            ResultSet rs = pstmt.executeQuery();
+            int rowsInserted = pstmt.executeUpdate();
 
-            if (!rs.next()) {
+            if (rowsInserted == 0) {
                 System.out.println("Username already exists");
                 return false;
             }
@@ -68,12 +68,12 @@ public class Backend {
 
             ResultSet rs = pstmt.executeQuery();
 
-            String username = "test";
 
             if (!rs.next()) {
                 System.out.println("Incorrect username or password try again");
                 return "Failed";
             }
+            String username = Gebruikersnaam;
 
 return username;
         } catch (SQLException e) {

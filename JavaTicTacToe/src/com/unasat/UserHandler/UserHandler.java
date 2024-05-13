@@ -1,4 +1,7 @@
 package com.unasat.UserHandler;
+import com.unasat.TicTacToe.TicTacToe;
+
+import static com.unasat.TicTacToe.TicTacToe.*;
 import java.util.Scanner;
 import static com.unasat.UserHandler.Backend.*;
 import static com.unasat.UserHandler.Backend.SqlRegister;
@@ -57,6 +60,9 @@ public class UserHandler {
 
             if (resultuser2 != "Failed"){
                 String player2 = resultuser2;
+
+                TicTacToe.Gamestart(player1, player2);
+
             }
             else {
                 Inloggen();

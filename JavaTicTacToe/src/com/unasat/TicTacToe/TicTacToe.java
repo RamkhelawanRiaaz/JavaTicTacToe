@@ -1,10 +1,12 @@
-package com.unasat.UserHandler;
+package com.unasat.TicTacToe;
+
 import java.util.*;
 
 public class TicTacToe {
 
     static String [] ticTacToeBord;
     static String beurt;
+    static String speler;
 
     static String checkWinner(){
 
@@ -39,9 +41,11 @@ public class TicTacToe {
             }
 
             if(line.equals("XXX")){
-                return " X";
+
+                return speler + "(X)";
+
             }else if(line.equals("OOO")){
-                return  "O";
+                return  speler + "(O)";
             }
         }
 
@@ -56,8 +60,8 @@ public class TicTacToe {
         }
 
         System.out.println(
-                beurt + " is aan de beurt, voer een nummer voor een beschikbaar cel in:"
-                        + beurt + " in:");
+                speler + " " + "("+beurt+")" + " is aan de beurt, voer een nummer voor een beschikbaar cel in:"
+                        + " " + beurt + " " + " in:");
         return null;
     }
 
@@ -78,22 +82,21 @@ public class TicTacToe {
         System.out.println("|---|---|---|");
     }
 
-    public static void main(String[] args)
+    public static void Gamestart(String player1, String player2)
     {
         Scanner in = new Scanner(System.in);
         ticTacToeBord = new String[9];
         beurt = "X";
+        speler = player1;
         String winner = null;
 
         for (int a = 0; a < 9; a++) {
             ticTacToeBord[a] = String.valueOf(a + 1);
         }
-
-        System.out.println("welkom bij de 3x3 TicTacToe game van Othniel, Riaaz, Rishika en Rishika.");
         printBoard();
 
         System.out.println(
-                "X speelt eerst . voer een nummer op een cel te selecteren:");     //acc naam kan hier komen
+                player1 + " (X) speelt eerst . voer een nummer op een cel te selecteren:");     //acc naam kan hier komen
 
         while (winner == null) {
             int numInput;
@@ -118,9 +121,12 @@ public class TicTacToe {
 
                 if (beurt.equals("X")) {
                     beurt = "O";
+                    speler = player2;
                 }
                 else {
                     beurt = "X";
+                    speler = player1;
+
                 }
 
                 printBoard();
