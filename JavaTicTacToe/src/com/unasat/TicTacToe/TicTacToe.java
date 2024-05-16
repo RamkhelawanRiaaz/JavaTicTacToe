@@ -42,10 +42,10 @@ public class TicTacToe {
 
             if(line.equals("XXX")){
 
-                return player1 + "(X)";
+                return player1;
 
             }else if(line.equals("OOO")){
-                return  player2 + "(O)";
+                return  player2;
             }
         }
 
