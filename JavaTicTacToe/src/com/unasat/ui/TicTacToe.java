@@ -1,6 +1,9 @@
-package com.unasat.TicTacToe;
+package com.unasat.ui;
 
 import java.util.*;
+/*
+import static com.unasat.TicTacToe.Backend.sqlresult;
+import static com.unasat.TicTacToe.Backend.getWinnerId;*/
 
 public class TicTacToe {
 
@@ -143,8 +146,9 @@ public class TicTacToe {
         }
 
         else {
-            System.out.println(
-                    "Congratulations! " + winner + " heeft gewonnen.");  //acc speler kan hier komen
+            System.out.println("Congratulations! " + winner + " heeft gewonnen.");
+
+//            boolean isInserted = sqlresult(winner);
         }
         in.close();
     }

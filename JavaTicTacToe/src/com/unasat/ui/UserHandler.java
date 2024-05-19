@@ -1,16 +1,21 @@
-package com.unasat.UserHandler;
-import com.unasat.TicTacToe.TicTacToe;
+package com.unasat.ui;
 
-import static com.unasat.TicTacToe.TicTacToe.*;
+import com.unasat.repository.*;
+import com.unasat.repository.dbconnection.*;
+
 import java.util.Scanner;
-import static com.unasat.UserHandler.Backend.*;
-import static com.unasat.UserHandler.Backend.SqlRegister;
+
 
 public class UserHandler {
 
+    private final GebruikerRepository gebruikerRepository;
 
-    public static void AccountCheck(){
-        DbConnection();
+    public UserHandler() {
+        this.gebruikerRepository = new GebruikerRepository();
+    }
+
+    public void accountCheck(){
+        connectToDB();
 
         Scanner myObj = new Scanner(System.in);
 
@@ -27,7 +32,7 @@ public class UserHandler {
         else{
             System.out.println("Ongeldige invoer probeer opnieuw");
             System.out.flush();
-            AccountCheck();
+            accountCheck();
         }
 
     }
@@ -80,7 +85,7 @@ public class UserHandler {
 
 
 
-    public static void GebruikersRegistratie(){
+    public void GebruikersRegistratie(){
         System.out.flush();
         Scanner myObj = new Scanner(System.in);
 
@@ -104,7 +109,7 @@ public class UserHandler {
         System.out.println("Gaat u akkoord met onze community guidelines? (Ja/Nee)");
         String Guidelines = myObj.nextLine();
 
-        var InsertQuery = SqlRegister( Voornaam , Achternaam , Gebruikersnaam , Password , GeboorteDatum);
+        var InsertQuery = gebruikerRepository.sqlRegister( Voornaam , Achternaam , Gebruikersnaam , Password , GeboorteDatum);
 
         if(InsertQuery){
             Inloggen();
