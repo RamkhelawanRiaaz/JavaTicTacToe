@@ -74,7 +74,6 @@ public class GebruikerRepository {
             if (connection != null) {
                 try {
                     connection.setAutoCommit(true); // Reset autocommit to true
-                    connection.close();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
