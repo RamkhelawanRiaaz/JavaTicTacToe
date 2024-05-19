@@ -6,9 +6,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    public static final String HackerGreen = "#149414";
-
-
     public static void main(String[] args) {
         UserHandler userHandler = new UserHandler();
         Scanner myObj = new Scanner(System.in);

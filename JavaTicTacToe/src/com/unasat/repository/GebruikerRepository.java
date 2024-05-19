@@ -1,8 +1,7 @@
 package com.unasat.repository;
-
 import com.unasat.repository.dbconnection.DBConnection;
-
 import java.sql.*;
+
 
 public class GebruikerRepository {
 

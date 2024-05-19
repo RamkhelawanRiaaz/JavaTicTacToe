@@ -1,9 +1,9 @@
 package com.unasat.ui;
-
-import com.unasat.repository.*;
-import com.unasat.repository.dbconnection.*;
-
 import java.util.Scanner;
+import com.unasat.repository.*;
+import static com.unasat.repository.dbconnection.DBConnection.*;
+
+
 
 
 public class UserHandler {
@@ -38,7 +38,7 @@ public class UserHandler {
     }
 
 
-    public static void Inloggen(){
+    public void Inloggen(){
         Scanner myObj = new Scanner(System.in);
         System.out.println("Player 1 Login");
 
@@ -48,7 +48,7 @@ public class UserHandler {
         System.out.println("Password");
         String Password = myObj.nextLine();
 
-        String result = SqlLogin( userName , Password);
+        String result = gebruikerRepository.SqlLogin( userName , Password);
 
         if (result != "Failed"){
             String player1 = result;
@@ -61,7 +61,7 @@ public class UserHandler {
             System.out.println("Password");
             String Password2 = myObj.nextLine();
 
-            String resultuser2 = SqlLogin( userName2 , Password2);
+            String resultuser2 = gebruikerRepository.SqlLogin( userName2 , Password2);
 
             if (resultuser2 != "Failed"){
                 String player2 = resultuser2;
