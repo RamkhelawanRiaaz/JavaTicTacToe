@@ -2,6 +2,8 @@ package com.unasat.repository;
 import com.unasat.repository.dbconnection.DBConnection;
 import java.sql.*;
 
+import com.unasat.ui.UserHandler;
+
 
 public class GebruikerRepository {
 
@@ -15,47 +17,73 @@ public class GebruikerRepository {
         try {
             connection.setAutoCommit(false); // Start transaction
 
-            System.out.println("Inserting records into the table...");
-            String sql1 = "INSERT INTO gebruikers (Voornaam, Achternaam, Gebruikersnaam, Password, Geboortedata) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement pstmt1 = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
+            String sqlcheck = "SELECT Gebruikersnaam FROM gebruikers WHERE gebruikersnaam = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sqlcheck);
+            pstmt.setString(1, Gebruikersnaam);
+            ResultSet rs = pstmt.executeQuery();
 
-            pstmt1.setString(1, Voornaam);
-            pstmt1.setString(2, Achternaam);
-            pstmt1.setString(3, Gebruikersnaam);
-            pstmt1.setString(4, Password);
-            pstmt1.setString(5, GeboorteDatum);
-
-            int rowsInserted = pstmt1.executeUpdate();
-
-            if (rowsInserted == 0) {
-                System.out.println("Username already exists");
-                connection.rollback(); // Rollback transaction
-                return false;
-            }
-
-            // Get the generated ID for the new record in the 'gebruikers' table
-            ResultSet generatedKeys = pstmt1.getGeneratedKeys();
-            int gebruikersID = 0;
-            if (generatedKeys.next()) {
-                gebruikersID = generatedKeys.getInt(1);
+            if (rs.next()) {
+                System.out.println("acc bestaat al");
+                UserHandler userHandler = new UserHandler();
+                userHandler.GebruikersRegistratie();
             } else {
-                System.out.println("Failed to retrieve user ID");
-                connection.rollback(); // Rollback transaction
-                return false;
+                System.out.println("Inserting records into the table...");
+                String sql1 = "INSERT INTO gebruikers (Voornaam, Achternaam, Gebruikersnaam, Password, Geboortedata) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement pstmt1 = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
+
+                pstmt1.setString(1, Voornaam);
+                pstmt1.setString(2, Achternaam);
+                pstmt1.setString(3, Gebruikersnaam);
+                pstmt1.setString(4, Password);
+                pstmt1.setString(5, GeboorteDatum);
+
+                // Execute the insert statement
+                int affectedRows = pstmt1.executeUpdate();
+
+                // Optionally, handle the generated keys if needed
+                if (affectedRows > 0) {
+                    try (ResultSet generatedKeys = pstmt1.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            long id = generatedKeys.getLong(1);
+                            System.out.println("Inserted record's ID: " + id);
+                        }
+                    }
+                }
             }
 
-            // Insert the user ID into the 'GebruikersResult' table
-            String sql2 = "INSERT INTO GebruikersResult (GebruikersID) VALUES (?)";
-            PreparedStatement pstmt2 = connection.prepareStatement(sql2);
-            pstmt2.setInt(1, gebruikersID);
 
-            int rowsInserted2 = pstmt2.executeUpdate();
 
-            if (rowsInserted2 == 0) {
-                System.out.println("--Failed to insert user ID into 'GebruikersResult' table--");
-                connection.rollback(); // Rollback transaction
-                return false;
-            }
+//            int rowsInserted = pstmt1.executeUpdate();
+//
+//            if(rowsInserted == 0){
+//                System.out.println("Username already exists");
+//                connection.rollback(); // Rollback transaction
+//                return false;
+//            }
+//
+//            // Get the generated ID for the new record in the 'gebruikers' table
+//            ResultSet generatedKeys = pstmt1.getGeneratedKeys();
+//            int gebruikersID = 0;
+//            if (generatedKeys.next()) {
+//                gebruikersID = generatedKeys.getInt(1);
+//            } else {
+//                System.out.println("Failed to retrieve user ID");
+//                connection.rollback(); // Rollback transaction
+//                return false;
+//            }
+//
+//            // Insert the user ID into the 'GebruikersResult' table
+//            String sql2 = "INSERT INTO GebruikersResult (GebruikersID) VALUES (?)";
+//            PreparedStatement pstmt2 = connection.prepareStatement(sql2);
+//            pstmt2.setInt(1, gebruikersID);
+//
+//            int rowsInserted2 = pstmt2.executeUpdate();
+//
+//            if (rowsInserted2 == 0) {
+//                System.out.println("--Failed to insert user ID into 'GebruikersResult' table--");
+//                connection.rollback(); // Rollback transaction
+//                return false;
+//            }
 
             connection.commit(); // Commit transaction
             return true;
