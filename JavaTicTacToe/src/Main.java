@@ -1,4 +1,6 @@
 import com.unasat.ui.UserHandler;
+import com.unasat.ui.Navigation;
+
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -7,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static void main(String[] args) {
-        UserHandler userHandler = new UserHandler();
+        Navigation navigation = new Navigation();
         Scanner myObj = new Scanner(System.in);
         System.out.println("welkom bij de 3x3 TicTacToe game van Othniel, Riaaz, Rishika en Rishika.");
         try {
@@ -16,7 +18,7 @@ public class Main {
             throw new RuntimeException(e);
         }
         System.out.flush();
-        userHandler.accountCheck();
+        navigation.navigation_handler();
     }
 
 }

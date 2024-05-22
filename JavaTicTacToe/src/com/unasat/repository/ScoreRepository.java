@@ -3,6 +3,7 @@ package com.unasat.repository;
 import com.unasat.repository.dbconnection.DBConnection;
 import java.sql.*;
 
+
 public class ScoreRepository {
 
     private final Connection connection;
@@ -60,6 +61,28 @@ public class ScoreRepository {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+
+    }
+    public Array get_leaderboard() {
+        try {
+
+            String sql = "SELECT * FROM gebruikerscore order by desc ";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            Array Leaderboard = connection.createArrayOf("VARCHAR", new Object[]{"1", "2","3"});
+            pstmt.setArray(1,Leaderboard);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return Leaderboard;
+            } else {
+                System.out.println("De leaderboard is leeg");
+                return null; // Return -1 als er geen gebruiker wordt gevonden
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to get leaderboard");
+            e.printStackTrace();
+            return null;
         }
     }
 }
