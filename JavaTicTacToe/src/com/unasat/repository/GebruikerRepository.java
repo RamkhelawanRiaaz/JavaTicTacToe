@@ -2,6 +2,7 @@ package com.unasat.repository;
 import com.unasat.repository.dbconnection.DBConnection;
 import java.sql.*;
 
+import com.unasat.ui.Navigation;
 import com.unasat.ui.UserHandler;
 
 
@@ -25,7 +26,9 @@ public class GebruikerRepository {
             if (rs.next()) {
                 System.out.println("acc bestaat al");
                 UserHandler userHandler = new UserHandler();
-                userHandler.GebruikersRegistratie();
+                Navigation navigation = new Navigation();
+
+                navigation.navigation_handler();
             } else {
                 System.out.println("Inserting records into the table...");
                 String sql1 = "INSERT INTO gebruikers (Voornaam, Achternaam, Gebruikersnaam, Password, Geboortedata) VALUES (?, ?, ?, ?, ?)";

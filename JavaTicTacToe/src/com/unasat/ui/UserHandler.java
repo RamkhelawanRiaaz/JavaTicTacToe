@@ -115,7 +115,8 @@ public class UserHandler {
             Inloggen();
         }else {
             System.out.println("Er was een issue bij inserten please try again");
-            GebruikersRegistratie();
+            Navigation navigation = new Navigation();
+            navigation.navigation_handler();
 
         }
     }

@@ -1,6 +1,8 @@
 package com.unasat.repository;
 
 import com.unasat.repository.dbconnection.DBConnection;
+import com.unasat.ui.Navigation;
+
 import java.sql.*;
 
 
@@ -64,25 +66,58 @@ public class ScoreRepository {
         }
 
     }
-    public Array get_leaderboard() {
+
+
+    public void get_leaderboard() {
+        Navigation navigation = new Navigation();
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println("Leaderboard");
+        System.out.println("|-----------------|");
         try {
 
-            String sql = "SELECT * FROM gebruikerscore order by desc ";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            Array Leaderboard = connection.createArrayOf("VARCHAR", new Object[]{"1", "2","3"});
-            pstmt.setArray(1,Leaderboard);
+            String get_scores_sql = "SELECT * FROM gebruikerscore order by Score desc";
+            PreparedStatement pstmt = connection.prepareStatement(get_scores_sql);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return Leaderboard;
+
+                String username = "Othniel";
+
+                for (int i = 0; i < 5;)
+                {
+                    int gebruikersID = rs.getInt("GebruikersID");
+                    int score = rs.getInt("Score");
+
+
+                    String get_gebruikersnaam_sql = "SELECT Gebruikersnaam FROM gebruikers where ID = ?";
+
+                    PreparedStatement pstmt_gebruikersnaam = connection.prepareStatement(get_gebruikersnaam_sql);
+                    pstmt_gebruikersnaam.setInt(1,rs.getInt(gebruikersID));
+
+                    ResultSet rs_gebruikersnaam = pstmt_gebruikersnaam.executeQuery();
+                    if (rs_gebruikersnaam.next()) {
+                        username = rs_gebruikersnaam.getString("Gebruikersnaam");
+
+                    }
+
+                    System.out.println("|" + i+1 +". " + username + " | " + score + "|");
+                    System.out.println("|-----------------|");
+                    System.out.println(" ");
+                    System.out.println(" ");
+                    navigation.navigation_handler();
+
+
+                }
+
             } else {
                 System.out.println("De leaderboard is leeg");
-                return null; // Return -1 als er geen gebruiker wordt gevonden
+                navigation.navigation_handler();
             }
         } catch (SQLException e) {
             System.err.println("Failed to get leaderboard");
             e.printStackTrace();
-            return null;
+            navigation.navigation_handler();
         }
     }
 }

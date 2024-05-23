@@ -1,5 +1,7 @@
 package com.unasat.ui;
 
+import java.sql.Array;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.unasat.repository.ScoreRepository;
@@ -19,10 +21,6 @@ public class Navigation {
         System.out.println("|---------------------|");
         System.out.println("|"+"3. Leaderboard" +"|");
         System.out.println("|---------------------|");
-    }
-
-    public void draw_leaderboard(){
-
     }
 
     public void navigation_handler()

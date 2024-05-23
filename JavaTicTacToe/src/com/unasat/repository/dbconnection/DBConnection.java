@@ -15,7 +15,7 @@ public class DBConnection {
         Connection connection =  null;
         try {
             connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
-            System.out.println("Connection is Stable and Active: " + connection.getClientInfo());
+            //System.out.println("Connection is Stable and Active: " + connection.getClientInfo());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
