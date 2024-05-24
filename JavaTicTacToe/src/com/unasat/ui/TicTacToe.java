@@ -69,6 +69,8 @@ public class TicTacToe {
     }
 
     public static void Gamestart(String player1, String player2) {
+        Navigation navigation = new Navigation();
+
         Scanner in = new Scanner(System.in);
         ticTacToeBord = new String[9];
         beurt = "X";
@@ -129,6 +131,8 @@ public class TicTacToe {
             if (!isInserted) {
                 System.out.println("Fout bij het opslaan van het spelresultaat.");
             }
+            navigation.navigation_handler();
+
         }
         in.close();
     }

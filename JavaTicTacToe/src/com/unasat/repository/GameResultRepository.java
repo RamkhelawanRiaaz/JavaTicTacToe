@@ -71,12 +71,7 @@ public class GameResultRepository {
                 rollbackEx.printStackTrace();
             }
             return false;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+
         }
     }
 }
