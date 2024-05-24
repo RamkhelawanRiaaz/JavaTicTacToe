@@ -41,7 +41,7 @@ public class GameResultRepository {
             Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
             // Insert winner result
-            String sqlWinner = "INSERT INTO gebruikersgameresult (GebruikersID, Score, Datumtijd) VALUES (?, ?, ?)";
+            String sqlWinner = "INSERT INTO GebruikersResult (GebruikersID, Score, Datumtijd) VALUES (?, ?, ?)";
             PreparedStatement pstmtWinner = connection.prepareStatement(sqlWinner);
             pstmtWinner.setInt(1, winnerId);
             pstmtWinner.setInt(2, 1); // Score of 1 for winner
@@ -49,7 +49,7 @@ public class GameResultRepository {
             int rowsInsertedWinner = pstmtWinner.executeUpdate();
 
             // Insert loser result
-            String sqlLoser = "INSERT INTO gebruikersgameresult (GebruikersID, Score, Datumtijd) VALUES (?, ?, ?)";
+            String sqlLoser = "INSERT INTO GebruikersResult (GebruikersID, Score, Datumtijd) VALUES (?, ?, ?)";
             PreparedStatement pstmtLoser = connection.prepareStatement(sqlLoser);
             pstmtLoser.setInt(1, loserId);
             pstmtLoser.setInt(2, 0); // Score of 0 for loser
