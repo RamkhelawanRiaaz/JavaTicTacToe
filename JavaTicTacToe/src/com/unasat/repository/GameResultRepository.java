@@ -1,6 +1,7 @@
 package com.unasat.repository;
 
 import com.unasat.repository.dbconnection.DBConnection;
+import com.unasat.ui.Navigation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 public class GameResultRepository {
 
     private final Connection connection;
+    Navigation navigation = new Navigation();
 
     public GameResultRepository() {
         this.connection = DBConnection.connectToDB();
@@ -64,6 +66,7 @@ public class GameResultRepository {
             e.printStackTrace();
             try {
                 connection.rollback();
+                navigation.navigation_handler();
             } catch (SQLException rollbackEx) {
                 rollbackEx.printStackTrace();
             }
