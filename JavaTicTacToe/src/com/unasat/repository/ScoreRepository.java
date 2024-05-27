@@ -75,50 +75,44 @@ public class ScoreRepository {
         System.out.println("Leaderboard");
         System.out.println("|-----------------|");
         try {
-
-            String get_scores_sql = "SELECT * FROM gebruikerscore order by Score desc";
+            // Updated SQL query to sum scores per user
+            String get_scores_sql = "SELECT GebruikersID, SUM(Score) AS TotalScore FROM gebruikerscore GROUP BY GebruikersID ORDER BY TotalScore DESC";
             PreparedStatement pstmt = connection.prepareStatement(get_scores_sql);
             ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) {
+            int rank = 1;
+            while (rs.next() && rank <= 5) {
+                int gebruikersID = rs.getInt("GebruikersID");
+                int totalScore = rs.getInt("TotalScore");
 
-                String username = "Othniel";
+                String get_gebruikersnaam_sql = "SELECT Gebruikersnaam FROM gebruikers WHERE ID = ?";
+                PreparedStatement pstmt_gebruikersnaam = connection.prepareStatement(get_gebruikersnaam_sql);
+                pstmt_gebruikersnaam.setInt(1, gebruikersID);
 
-                for (int i = 0; i < 5;)
-                {
-                    int gebruikersID = rs.getInt("GebruikersID");
-                    int score = rs.getInt("Score");
+                ResultSet rs_gebruikersnaam = pstmt_gebruikersnaam.executeQuery();
+                if (rs_gebruikersnaam.next()) {
+                    String username = rs_gebruikersnaam.getString("Gebruikersnaam");
 
-
-                    String get_gebruikersnaam_sql = "SELECT Gebruikersnaam FROM gebruikers where ID = ?";
-
-                    PreparedStatement pstmt_gebruikersnaam = connection.prepareStatement(get_gebruikersnaam_sql);
-                    pstmt_gebruikersnaam.setInt(1,rs.getInt(gebruikersID));
-
-                    ResultSet rs_gebruikersnaam = pstmt_gebruikersnaam.executeQuery();
-                    if (rs_gebruikersnaam.next()) {
-                        username = rs_gebruikersnaam.getString("Gebruikersnaam");
-
-                    }
-
-                    System.out.println("|" + i+1 +". " + username + " | " + score + "|");
+                    System.out.println("|" + rank + ". " + username + " | " + totalScore + "|");
                     System.out.println("|-----------------|");
-                    System.out.println(" ");
-                    System.out.println(" ");
-                    navigation.navigation_handler();
 
-
+                    rank++;
                 }
-
-            } else {
-                System.out.println("De leaderboard is leeg");
-                navigation.navigation_handler();
+                System.out.println(" ");
+                System.out.println(" ");
             }
+
+            if (rank == 1) {
+                System.out.println("De leaderboard is leeg");
+            }
+
+            navigation.navigation_handler();
         } catch (SQLException e) {
             System.err.println("Failed to get leaderboard");
             e.printStackTrace();
             navigation.navigation_handler();
         }
     }
+
 }
 

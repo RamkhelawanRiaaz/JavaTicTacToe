@@ -124,6 +124,8 @@ public class TicTacToe {
 
         if (winner.equalsIgnoreCase("draw")) {
             System.out.println("Het is een draw! Dank u wel voor het spelen.");
+            navigation.navigation_handler();
+
         } else {
             System.out.println("Gefeliciteerd! " + winner + " heeft gewonnen.");
             System.out.println("De verliezer is: " + loser);
