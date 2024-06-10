@@ -54,7 +54,8 @@ public class UserHandler {
                 navigation.navigation_handler();
 
             } else {
-                single_inloggen();
+                Navigation navigation = new Navigation();
+                navigation.navigation_handler();
             }
 
         }
@@ -102,18 +103,17 @@ if (Player1 != null && Player2 != null){
         System.out.println("Password");
         String Password = myObj.nextLine();
 
-        System.out.println("GeboorteDatum - YYY-MM-DD");
+        System.out.println("GeboorteDatum - *De nummers vast Aan elkaar in de volgorde JaarMaandDag");
         String GeboorteDatum = myObj.nextLine();
-
-        System.out.println("Gaat u akkoord met onze community guidelines? (Ja/Nee)");
-        String Guidelines = myObj.nextLine();
 
         var InsertQuery = gebruikerRepository.sqlRegister( Voornaam , Achternaam , Gebruikersnaam , Password , GeboorteDatum);
 
         if(InsertQuery){
-            single_inloggen();
+            Navigation navigation = new Navigation();
+            navigation.navigation_handler();
+
         }else {
-            System.out.println("Er was een issue bij inserten please try again");
+            System.out.println("Er was een issue bij het toevoegen van de gebruiker");
             Navigation navigation = new Navigation();
             navigation.navigation_handler();
 

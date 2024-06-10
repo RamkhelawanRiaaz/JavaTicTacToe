@@ -34,7 +34,65 @@ public class GameResultRepository {
         }
     }
 
-    public boolean storeGameResult(String winner, String loser) {
+    public boolean storeGameResult(String winner, String loser, boolean draw) {
+
+        if(draw){
+            try {
+                connection.setAutoCommit(false);
+                int GameId = 1;
+
+                String sql_get_gameid = "SELECT SpellID FROM gebruikerscore ORDER BY SpellID DESC LIMIT 1";
+                PreparedStatement pstmt_gameid = connection.prepareStatement(sql_get_gameid);
+                ResultSet rs = pstmt_gameid.executeQuery();
+                if(rs.next()){
+                    GameId = rs.getInt("SpellID");
+                }
+
+                // Fetch user IDs
+                int winnerId = getUserId(winner);
+                int loserId = getUserId(loser);
+
+                // Current timestamp
+                Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+                // Insert winner result
+                String sqlWinner = "INSERT INTO gebruikerscore (SpellID,GebruikersID, Score, Datumtijd) VALUES (?,?, ?, ?)";
+                PreparedStatement pstmtWinner = connection.prepareStatement(sqlWinner);
+
+                pstmtWinner.setInt(1, GameId+1);
+                pstmtWinner.setInt(2, winnerId);
+                pstmtWinner.setInt(3, 0); // Score of 1 for winner
+                pstmtWinner.setTimestamp(4, currentTimestamp);
+                int rowsInsertedWinner = pstmtWinner.executeUpdate();
+
+                // Insert loser result
+                String sqlLoser = "INSERT INTO gebruikerscore (SpellID,GebruikersID, Score, Datumtijd) VALUES (?,?, ?, ?)";
+                PreparedStatement pstmtLoser = connection.prepareStatement(sqlLoser);
+
+                pstmtLoser.setInt(1, GameId+1);
+                pstmtLoser.setInt(2, loserId);
+                pstmtLoser.setInt(3, 0); // Score of 0 for loser
+                pstmtLoser.setTimestamp(4, currentTimestamp);
+                int rowsInsertedLoser = pstmtLoser.executeUpdate();
+
+                connection.commit();
+
+                return rowsInsertedWinner > 0 && rowsInsertedLoser > 0;
+            }
+            catch (SQLException e) {
+                System.err.println("Failed to store game result");
+                e.printStackTrace();
+                try {
+                    connection.rollback();
+                    navigation.navigation_handler();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+                return false;
+
+            }
+        }
+        else{
         try {
             connection.setAutoCommit(false);
             int GameId = 1;
@@ -76,7 +134,8 @@ public class GameResultRepository {
             connection.commit();
 
             return rowsInsertedWinner > 0 && rowsInsertedLoser > 0;
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             System.err.println("Failed to store game result");
             e.printStackTrace();
             try {
@@ -87,6 +146,7 @@ public class GameResultRepository {
             }
             return false;
 
+        }
         }
     }
 }

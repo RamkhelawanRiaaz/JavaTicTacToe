@@ -11,7 +11,9 @@ public class Main {
     public static void main(String[] args) {
         Navigation navigation = new Navigation();
         Scanner myObj = new Scanner(System.in);
-        System.out.println("welkom bij de 3x3 TicTacToe game van Othniel, Riaaz, Rishika en Rishika.");
+        System.out.println("welkom bij de TicTacToe game van Othniel, Riaaz, Rishika en Rishika.");
+        System.out.println("Voer het getal in naar waar u wilt navigeren");
+
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {

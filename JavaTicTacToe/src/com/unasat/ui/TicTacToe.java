@@ -146,13 +146,14 @@ public class TicTacToe {
         if (winner.equalsIgnoreCase("draw")) {
             System.out.println("Het is een draw! Dank u wel voor het spelen.");
             UserHandler.Player2 = null;
+            boolean isInserted = gameResultRepository.storeGameResult(winner, loser, true);
 
             navigation.navigation_handler();
 
         } else {
             System.out.println("Gefeliciteerd! " + winner + " heeft gewonnen.");
             System.out.println("De verliezer is: " + loser);
-            boolean isInserted = gameResultRepository.storeGameResult(winner, loser);
+            boolean isInserted = gameResultRepository.storeGameResult(winner, loser, false);
             if (!isInserted) {
                 System.out.println("Fout bij het opslaan van het spelresultaat.");
             }
