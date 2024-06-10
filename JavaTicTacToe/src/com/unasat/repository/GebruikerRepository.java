@@ -8,11 +8,13 @@ import com.unasat.ui.UserHandler;
 
 public class GebruikerRepository {
 
+
     private final Connection connection;
 
     public GebruikerRepository() {
         this.connection = DBConnection.connectToDB();
     }
+
 
     public boolean sqlRegister(String Voornaam, String Achternaam, String Gebruikersnaam, String Password, String GeboorteDatum) {
         try {
@@ -77,6 +79,36 @@ public class GebruikerRepository {
             }
         }
     }
+
+    public int GetUserPlayedGames() {
+        try {
+            // Updated SQL query to sum scores per user
+            String userid_sql = "SELECT ID FROM gebruikers WHERE gebruikersnaam = ?;";
+
+            PreparedStatement pstmt = connection.prepareStatement(userid_sql);
+            pstmt.setString(1, UserHandler.Player1);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {  // Move cursor to the first row
+                int userId = rs.getInt("ID");
+
+                String get_scores_sql = "SELECT COUNT(*) AS score_count FROM gebruikerscore WHERE gebruikersid = ?;";
+                PreparedStatement pstmtscores = connection.prepareStatement(get_scores_sql);
+                pstmtscores.setInt(1, userId);
+                ResultSet rsscores = pstmtscores.executeQuery();
+
+                if (rsscores.next()) {
+                    int voltoidegames = rsscores.getInt("score_count");
+                    return voltoidegames;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to retrieve played games");
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
 
     public String SqlLogin(String Gebruikersnaam, String Password) {

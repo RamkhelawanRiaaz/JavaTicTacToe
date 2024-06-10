@@ -8,37 +8,33 @@ import static com.unasat.repository.dbconnection.DBConnection.*;
 
 public class UserHandler {
 
+    public static String Player1 = null;
+    public static String Player2 = null;
+    public static int VoltoideGames = 0;
+
+
+
     private final GebruikerRepository gebruikerRepository;
 
     public UserHandler() {
         this.gebruikerRepository = new GebruikerRepository();
     }
 
-    public void accountCheck(){
-        connectToDB();
 
-        Scanner myObj = new Scanner(System.in);
-
-        System.out.println("Heeft u nog geen account type Registreren | heeft u wel type Inloggen");
-        String Isregistered = myObj.nextLine();
-
-        if(Isregistered.equalsIgnoreCase("registreren")){
-            GebruikersRegistratie();
-        }
-        else if(Isregistered.equalsIgnoreCase("inloggen")) {
-            Inloggen();
-
-        }
-        else{
-            System.out.println("Ongeldige invoer probeer opnieuw");
-            System.out.flush();
-            accountCheck();
-        }
-
+    public void log_out(){
+        Player1 = null;
+        Player2 = null;
+        VoltoideGames = 0;
+        Navigation navigation = new Navigation();
+        navigation.navigation_handler();
     }
 
 
-    public void Inloggen(){
+    public void single_inloggen(){
+
+        //Player one login - Othniel
+        if(Player1 == null){
+
         Scanner myObj = new Scanner(System.in);
         System.out.println("Player 1 Login");
 
@@ -50,40 +46,41 @@ public class UserHandler {
 
         String result = gebruikerRepository.SqlLogin( userName , Password);
 
-        if (result != "Failed"){
-            String player1 = result;
+            if (result != "Failed") {
+                Player1 = result;
+                VoltoideGames = gebruikerRepository.GetUserPlayedGames();
+                Navigation navigation = new Navigation();
+                navigation.navigation_handler();
 
+            } else {
+                single_inloggen();
+            }
+
+        }
+
+        //Player 2 Inloggen - Othniel
+        if(Player2 == null){
+            Scanner myObj = new Scanner(System.in);
             System.out.println("Player 2 Login");
 
             System.out.println("Username");
-            String userName2 = myObj.nextLine();
+            String userName = myObj.nextLine();
 
             System.out.println("Password");
-            String Password2 = myObj.nextLine();
+            String Password = myObj.nextLine();
 
-            String resultuser2 = gebruikerRepository.SqlLogin( userName2 , Password2);
+            String result2 = gebruikerRepository.SqlLogin( userName , Password);
 
-            if (resultuser2 != "Failed"){
-                String player2 = resultuser2;
-
-                TicTacToe.Gamestart(player1, player2);
-
+            if (result2 != "Failed") {
+                Player2 = result2;
+            } else {
+                single_inloggen();
             }
-            else {
-                Inloggen();
-            }
-
-
-
-        }else {
-            Inloggen();
         }
-
-
-
+if (Player1 != null && Player2 != null){
+    TicTacToe.Gamestart(Player1, Player2);
+}
     }
-
-
 
     public void GebruikersRegistratie(){
         System.out.flush();
@@ -112,7 +109,7 @@ public class UserHandler {
         var InsertQuery = gebruikerRepository.sqlRegister( Voornaam , Achternaam , Gebruikersnaam , Password , GeboorteDatum);
 
         if(InsertQuery){
-            Inloggen();
+            single_inloggen();
         }else {
             System.out.println("Er was een issue bij inserten please try again");
             Navigation navigation = new Navigation();

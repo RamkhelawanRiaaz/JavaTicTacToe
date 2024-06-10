@@ -2,6 +2,7 @@ package com.unasat.repository;
 
 import com.unasat.repository.dbconnection.DBConnection;
 import com.unasat.ui.Navigation;
+import com.unasat.ui.UserHandler;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,6 +79,7 @@ public class GameResultRepository {
             e.printStackTrace();
             try {
                 connection.rollback();
+                UserHandler.Player2 = null;
                 navigation.navigation_handler();
             } catch (SQLException rollbackEx) {
                 rollbackEx.printStackTrace();
