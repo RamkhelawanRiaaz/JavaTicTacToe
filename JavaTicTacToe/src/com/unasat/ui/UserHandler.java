@@ -20,7 +20,7 @@ public class UserHandler {
         this.gebruikerRepository = new GebruikerRepository();
     }
 
-
+//Dit logt de ingelogte player uit en reset de players en voltoide games zodat de navigatie de juiste opties wijst - Othniel
     public void log_out(){
         Player1 = null;
         Player2 = null;
@@ -29,6 +29,7 @@ public class UserHandler {
         navigation.navigation_handler();
     }
 
+//Dit is de login logica die nagaat als player 1 al is ingelogd en aan de hand van wie is ingelogd bij het starten vraagt het maar 1 of beide plauers om in te loggen. - Othniel
 
     public void single_inloggen(){
 
@@ -82,6 +83,7 @@ if (Player1 != null && Player2 != null){
 }
     }
 
+    //Gebruiker registreren frontend - Othniel
     public void GebruikersRegistratie(){
         System.out.flush();
         Scanner myObj = new Scanner(System.in);

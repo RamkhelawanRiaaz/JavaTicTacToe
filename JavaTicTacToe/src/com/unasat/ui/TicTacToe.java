@@ -18,6 +18,7 @@ public class TicTacToe {
     static GameResultRepository gameResultRepository = new GameResultRepository(); // Initialize GameResultRepository
     GebruikerRepository gebruikerRepository = new GebruikerRepository();
 
+    //Defineren van de spelers gedeelte gedaan (Usermanagement gedeelte) - Othniel
     static String[] checkWinner(String player1, String player2) {
         for (int a = 0; a < 8; a++) {
             String line = null;
@@ -86,6 +87,8 @@ public class TicTacToe {
         }
     }
 
+
+    //Defineren van de spelers gedeelte (Usermanagement gedeelte) - Othniel
     public static void Gamestart(String player1, String player2) {
         Navigation navigation = new Navigation();
 

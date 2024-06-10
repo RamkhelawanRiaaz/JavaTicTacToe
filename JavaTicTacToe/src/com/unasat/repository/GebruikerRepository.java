@@ -8,14 +8,14 @@ import com.unasat.ui.UserHandler;
 
 public class GebruikerRepository {
 
-
+//Connection ophalen - Othniel
     private final Connection connection;
 
     public GebruikerRepository() {
         this.connection = DBConnection.connectToDB();
     }
 
-
+//Gebruiker Registratie backend logica  - Othniel
     public boolean sqlRegister(String Voornaam, String Achternaam, String Gebruikersnaam, String Password, String GeboorteDatum) {
         try {
             connection.setAutoCommit(false); // Start transaction
@@ -80,6 +80,7 @@ public class GebruikerRepository {
         }
     }
 
+    //Aantal voltoide games ophalen van de ingelogde gebruiker - Othniel
     public int GetUserPlayedGames() {
         try {
             // Updated SQL query to sum scores per user
@@ -110,7 +111,7 @@ public class GebruikerRepository {
     }
 
 
-
+//Login backend logica - Othniel
     public String SqlLogin(String Gebruikersnaam, String Password) {
         try {
 

@@ -10,6 +10,7 @@ public class Navigation {
     ScoreRepository leaderboard = new ScoreRepository();
     GebruikerRepository gebruikerRepository = new GebruikerRepository();
 
+//Navigatie menu frontend die geprint moet worden - Othniel
     public void print_navmenu()
     {
         if(UserHandler.Player1 == null){
@@ -38,6 +39,7 @@ public class Navigation {
 
     }
 
+    //De juiste opties wijzen in de navigatie aan de hand van als de gebruiker is ingelogd of niet - Othniel
     public void navigation_handler()
     {
         UserHandler.VoltoideGames = gebruikerRepository.GetUserPlayedGames();

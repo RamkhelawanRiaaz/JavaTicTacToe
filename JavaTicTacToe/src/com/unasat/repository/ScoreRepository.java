@@ -14,6 +14,7 @@ public class ScoreRepository {
         this.connection = DBConnection.connectToDB();
     }
 
+    //Gedeelte van de querries geschreven waar de data bewerkt moet worden van welke gebruiker (Usermanagement Gedeelte) - Othniel
     public int getWinnerid(String winner) {
         try {
             String sql = "SELECT ID FROM gebruikers WHERE Gebruikersnaam = ?";
@@ -67,7 +68,7 @@ public class ScoreRepository {
 
     }
 
-
+    //Dit is de backend die de data van de leaderboard ophaalt - Othniel
     public void get_leaderboard() {
         Navigation navigation = new Navigation();
         System.out.println(" ");
