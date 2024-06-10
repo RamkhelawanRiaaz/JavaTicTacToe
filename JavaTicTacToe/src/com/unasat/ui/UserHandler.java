@@ -76,7 +76,8 @@ public class UserHandler {
             if (result2 != "Failed") {
                 Player2 = result2;
             } else {
-                single_inloggen();
+                Navigation navigation = new Navigation();
+                navigation.navigation_handler();
             }
         }
 if (Player1 != null && Player2 != null){
