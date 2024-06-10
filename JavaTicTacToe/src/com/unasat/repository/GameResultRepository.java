@@ -14,6 +14,8 @@ public class GameResultRepository {
 
     private final Connection connection;
     Navigation navigation = new Navigation();
+    GebruikerRepository gebruikerRepository = new GebruikerRepository();
+
 
     public GameResultRepository() {
         this.connection = DBConnection.connectToDB();
@@ -79,7 +81,6 @@ public class GameResultRepository {
             e.printStackTrace();
             try {
                 connection.rollback();
-                UserHandler.Player2 = null;
                 navigation.navigation_handler();
             } catch (SQLException rollbackEx) {
                 rollbackEx.printStackTrace();

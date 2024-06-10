@@ -1,11 +1,14 @@
 package com.unasat.ui;
 import java.util.Scanner;
+
+import com.unasat.repository.GebruikerRepository;
 import com.unasat.repository.ScoreRepository;
 
 public class Navigation {
 
     UserHandler userHandler = new UserHandler();
     ScoreRepository leaderboard = new ScoreRepository();
+    GebruikerRepository gebruikerRepository = new GebruikerRepository();
 
     public void print_navmenu()
     {
@@ -37,6 +40,8 @@ public class Navigation {
 
     public void navigation_handler()
     {
+        UserHandler.VoltoideGames = gebruikerRepository.GetUserPlayedGames();
+        UserHandler.Player2 = null;
 
         if(userHandler.Player1 != null){
             System.out.println("Welkom " + UserHandler.Player1);
@@ -47,7 +52,7 @@ public class Navigation {
 
         Scanner in = new Scanner(System.in);
         int input = in.nextInt();
-        if(userHandler.Player1 != null) {
+        if(UserHandler.Player1 == null) {
             switch (input) {
                 case 1, 2:
                     userHandler.single_inloggen();

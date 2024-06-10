@@ -98,8 +98,6 @@ public class ScoreRepository {
 
                     rank++;
                 }
-                System.out.println(" ");
-                System.out.println(" ");
             }
 
             if (rank == 1) {

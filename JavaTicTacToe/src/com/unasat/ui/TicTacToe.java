@@ -2,13 +2,21 @@ package com.unasat.ui;
 
 import java.util.*;
 import com.unasat.repository.GameResultRepository;
+import com.unasat.repository.GebruikerRepository;
 
 public class TicTacToe {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String RED_BOLD_BRIGHT = "\033[1;91m";
+    public static final String BLUE_BOLD_BRIGHT = "\033[1;94m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
 
     static String[] ticTacToeBord;
     static String beurt;
     static String speler;
     static GameResultRepository gameResultRepository = new GameResultRepository(); // Initialize GameResultRepository
+    GebruikerRepository gebruikerRepository = new GebruikerRepository();
 
     static String[] checkWinner(String player1, String player2) {
         for (int a = 0; a < 8; a++) {
@@ -60,12 +68,22 @@ public class TicTacToe {
 
     static void printBoard() {
         System.out.println("|---|---|---|");
-        System.out.println("| " + ticTacToeBord[0] + " | " + ticTacToeBord[1] + " | " + ticTacToeBord[2] + " |");
+        System.out.println("| " + ANSI_BLACK_BACKGROUND + ANSI_YELLOW + colorize(ticTacToeBord[0]) + ANSI_RESET + " | " + ANSI_BLACK_BACKGROUND  + ANSI_YELLOW + colorize(ticTacToeBord[1]) + ANSI_RESET + " | " + ANSI_BLACK_BACKGROUND + ANSI_YELLOW + colorize(ticTacToeBord[2]) + ANSI_RESET + " |");
         System.out.println("|-----------|");
-        System.out.println("| " + ticTacToeBord[3] + " | " + ticTacToeBord[4] + " | " + ticTacToeBord[5] + " |");
+        System.out.println("| " + ANSI_BLACK_BACKGROUND  + ANSI_YELLOW + colorize(ticTacToeBord[3]) + ANSI_RESET + " | " + ANSI_BLACK_BACKGROUND  + ANSI_YELLOW + colorize(ticTacToeBord[4]) + ANSI_RESET + " | " + ANSI_BLACK_BACKGROUND + ANSI_YELLOW + colorize(ticTacToeBord[5]) + ANSI_RESET + " |");
         System.out.println("|-----------|");
-        System.out.println("| " + ticTacToeBord[6] + " | " + ticTacToeBord[7] + " | " + ticTacToeBord[8] + " |");
+        System.out.println("| " + ANSI_BLACK_BACKGROUND  + ANSI_YELLOW + colorize(ticTacToeBord[6]) + ANSI_RESET + " | " + ANSI_BLACK_BACKGROUND  + ANSI_YELLOW + colorize(ticTacToeBord[7]) + ANSI_RESET + " | " + ANSI_BLACK_BACKGROUND + ANSI_YELLOW + colorize(ticTacToeBord[8]) + ANSI_RESET + " |");
         System.out.println("|---|---|---|");
+    }
+
+    static String colorize(String value) {
+        if (value.equals("X")) {
+            return RED_BOLD_BRIGHT + value + ANSI_RESET;
+        } else if (value.equals("O")) {
+            return BLUE_BOLD_BRIGHT + value + ANSI_RESET;
+        } else {
+            return value;
+        }
     }
 
     public static void Gamestart(String player1, String player2) {
@@ -124,6 +142,8 @@ public class TicTacToe {
 
         if (winner.equalsIgnoreCase("draw")) {
             System.out.println("Het is een draw! Dank u wel voor het spelen.");
+            UserHandler.Player2 = null;
+
             navigation.navigation_handler();
 
         } else {
