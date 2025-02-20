@@ -17,7 +17,7 @@ public class Navigation {
         if(UserHandler.Player1 == null){
 
             System.out.println("|---------------------|");
-            System.out.println("|"+"1. Inloggen"+"|");
+            System.out.println("|"+"2. Inloggen"+"|");
             System.out.println("|---------------------|");
             System.out.println("|"+"2. Registreren"+"|");
             System.out.println("|---------------------|");
